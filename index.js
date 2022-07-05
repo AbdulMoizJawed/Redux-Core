@@ -2,6 +2,9 @@ const redux = require('redux')
 const bindActionCreators = redux.bindActionCreators
 const createStore = redux.createStore
 const combineReducers = redux.combineReducers
+const applyMiddleware = redux.applyMiddleware
+const reduxLogger = require('redux-logger')
+const logger = reduxLogger.createLogger()
 
 // ----------------------------//
 // Actions
@@ -126,12 +129,12 @@ const rootReducer = combineReducers({
 })
 
 
-const store = createStore(rootReducer) //store holding the state of app, inside the reducer
+const store = createStore(rootReducer, applyMiddleware(logger)) //store holding the state of app, inside the reducer
 console.log('Initial State', store.getState()) // Access to state
 
 // store.subscribe(()=>console.log("Updated State", store.getState)) //Subbscribe function called whenever state updates
 
-const unsubscibe = store.subscribe(()=>console.log("Updated State", store.getState())) //Subbscribe function called whenever state updates
+const unsubscibe = store.subscribe(()=>{}) //Subbscribe function called whenever state updates
 
 
 // store.dispatch(orderCake()) // takes actionCreator as parameter
